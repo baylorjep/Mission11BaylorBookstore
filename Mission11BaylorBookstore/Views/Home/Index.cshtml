@@ -1,10 +1,25 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model Book
+@model BooksListViewModel
 
-<form method="post">
-    <label asp-for="Title">Title</label>
-    <input asp-for="Title" />
-    <button type="submit">Submit</button>
-</form>
+<h1>Baylor's Books</h1>
+
+@foreach  (Book b in Model.Books)
+{
+    <h3>@b.Title</h3>
+    
+    <ul>
+        <li>Author: @b.Author</li>
+        <li>Classification: @b.Classification</li>
+        <li>Category: @b.Category</li>
+        <li>Publisher: @b.Publisher</li>
+        <li>Number of Pages: @b.PageCount</li>
+        <li>Price: $@b.Price</li>
+        <li>ISBN: @b.Isbn</li>
+    </ul>
+}
+
+<a asp-controller="Home" asp-action="Index" asp-route-pageNum="1">1</a>
+<a asp-controller="Home" asp-action="Index" asp-route-pageNum="2">2</a>
+<a asp-controller="Home" asp-action="Index" asp-route-pageNum="3">3</a>

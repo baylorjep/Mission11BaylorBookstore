@@ -8,6 +8,6 @@ namespace Mission11BaylorBookstore.Models
         {
             _context = temp;
         }
-        public List<Book> Books => _context.Books.ToList();
+        public IQueryable<Book> Books => _context.Books;
     }
 }

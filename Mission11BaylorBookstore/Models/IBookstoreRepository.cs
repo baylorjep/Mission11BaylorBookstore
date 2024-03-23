@@ -2,6 +2,6 @@
 {
     public interface IBookstoreRepository
     {
-        List<Book> Books { get; }
+        public IQueryable<Book> Books { get; }
     }
 }

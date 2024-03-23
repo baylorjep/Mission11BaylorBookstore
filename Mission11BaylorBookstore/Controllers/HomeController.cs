@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Mission11BaylorBookstore.Models;
+using Mission11BaylorBookstore.Models.ViewModels;
 using System.Diagnostics;
 
 namespace Mission11BaylorBookstore.Controllers
@@ -13,10 +14,28 @@ namespace Mission11BaylorBookstore.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageNum)
         {
-            var booktitle = _repo.Books.FirstOrDefault(x => x.Title == "Les Miserables");
-            return View(booktitle);
+            int pageSize = 5;
+
+            var Blah = new BooksListViewModel
+            {
+
+                Books = _repo.Books
+                    .OrderBy(x => x.Title)
+                    .Skip((pageSize - 1) * pageNum)
+                    .Take(pageSize),
+
+                PaginationInfo = new PaginationInfo
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = _repo.Books.Count()
+                }
+            };
+
+
+            return View(Blah);
         }
 
     }
